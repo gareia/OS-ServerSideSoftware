@@ -1,5 +1,6 @@
 package com.opensource.speedplanner.controller;
 
+import com.opensource.speedplanner.model.Classroom;
 import com.opensource.speedplanner.model.LearningProgram;
 import com.opensource.speedplanner.resource.*;
 import com.opensource.speedplanner.service.LearningProgramService;
@@ -52,6 +53,23 @@ public class LearningProgramController {
     public LearningProgramResource getLearningProgramByIdAndEducationProviderId(@PathVariable Long educationProviderId,
                                                                                 @PathVariable Long learningProgramId){
         return convertToResource(learningProgramService.getLearningProgramByIdAndEducationProviderId(educationProviderId, learningProgramId));
+    }
+    @PostMapping("/learning programs/{learningProgramId}/courses/{courseId}")
+    public LearningProgramResource assignLearningProgramCourse(@PathVariable(name = "learningProgramId") Long learningProgramId,
+                                                   @PathVariable(name = "courseId") Long courseId) {
+        return convertToResource(learningProgramService.assignLearningProgramCourse(learningProgramId, courseId));
+    }
+    @DeleteMapping("/learning programs/{learningProgramId}/courses/{courseId}")
+    public LearningProgramResource unassignLearningProgramCourse(@PathVariable(name = "learningProgramId") Long learningProgramId,
+                                             @PathVariable(name = "courseId") Long courseId) {
+
+        return convertToResource(learningProgramService.unassignLearningProgramCourse(learningProgramId, courseId));
+    }
+    @GetMapping("/courses/{courseId}/learningPrograms")
+    public Page<LearningProgramResource> getAllLearningProgramByCourseId(@PathVariable(name = "courseId") Long courseId, Pageable pageable) {
+        Page<LearningProgram> learningProgramPage = learningProgramService.getAllLearningProgramByCourseId(courseId, pageable);
+        List<LearningProgramResource> learningPrograms = learningProgramPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(learningPrograms, pageable, learningPrograms.size());
     }
 
     @Operation(summary = "Update Learning program", description = "Update a Learning program by specifying Id, " +

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 public interface ClassroomService {
     Page<Classroom> getAllClassroom(Pageable pageable);
     Page<Classroom> getAllClassroomByCourseId(Long courseId, Pageable pageable);
+    Classroom getClassroomByIdAndEducationProviderId(Long educationProviderId, Long classroomId);
     Classroom assignClassroomCourse(Long classroomId, Long courseId);
     Classroom unassignClassroomCourse(Long classroomId, Long courseId);
     Classroom getClassroomById(Long classroomId);

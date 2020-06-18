@@ -32,4 +32,5 @@ public class InscriptionProcess {
 	@OneToOne(mappedBy = "inscriptionProcess")
 	@JsonIgnore
 	private User user;
+
 }

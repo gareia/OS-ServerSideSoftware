@@ -16,6 +16,10 @@ public interface LearningProgramService {
     LearningProgram updateLearningProgram(Long educationProviderId, Long learningProgramId, LearningProgram learningProgramDetails);
     ResponseEntity<?> deleteLearningProgram(Long educationProviderId, Long learningProgramId);
 
+    LearningProgram assignLearningProgramCourse(Long learningProgramId, Long courseId);
+    LearningProgram unassignLearningProgramCourse(Long learningProgramId, Long courseId);
+    Page<LearningProgram> getAllLearningProgramByCourseId(Long courseId, Pageable pageable);
+
 
 
 }

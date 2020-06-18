@@ -54,6 +54,26 @@ public class CourseController {
         int courseCount = courses.size();
         return new PageImpl<>(courses, pageable, courseCount);
     }
+    @GetMapping("/learning programs/{learningProgramId}/courses")
+    public Page<CourseResource> getAllCourseByLearningProgramId(@PathVariable(name = "learningProgramId") Long learningProgramId, Pageable pageable) {
+        List<CourseResource> courses = courseService.getAllCourseByLearningProgramId(learningProgramId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int courseCount = courses.size();
+        return new PageImpl<>(courses, pageable, courseCount);
+    }
+    @GetMapping("/inscriptionProcesses/{inscriptionProcessId}/courses")
+    public Page<CourseResource> getAllCoursesByInscriptionProcessId(
+            @PathVariable(name = "inscriptionProcessId") Long inscriptionProcessId,
+            Pageable pageable) {
+        Page<Course> coursePage = courseService.getAllCoursesByInscriptionProcessId(inscriptionProcessId, pageable);
+        List<CourseResource> resources = coursePage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
+
+    @GetMapping("/inscriptionProcesses/{inscriptionProcessId}/courses/{courseId}")
+    public CourseResource getCourseByIdAndInscriptionProcessId(@PathVariable(name = "inscriptionProcessId") Long inscriptionProcessId,
+                                                   @PathVariable(name = "courseId") Long courseId) {
+        return convertToResource(courseService.getCourseByIdAndInscriptionProcessId(inscriptionProcessId, courseId));
+    }
 
     @Operation(summary = "Create Course", description = "Create a Course by given resource", tags = {"courses"})
     @PostMapping("/courses")

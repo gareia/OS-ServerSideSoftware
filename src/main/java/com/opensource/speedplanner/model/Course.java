@@ -89,19 +89,22 @@ public class Course {
 
 	@OneToOne(mappedBy = "courses")
     private SectionRequest sectionRequest;
-
-    //Porque LearningProgram tiene List<Course>
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "courses")
-    @JsonIgnore
-    private List<LearningProgram> learningPrograms;
-
-    //Porque InscriptionProcess tiene List<Course>
+*/
+     //Porque InscriptionProcess tiene List<Course>
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "inscription_process_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private InscriptionProcess inscriptionProcess;*/
+    private InscriptionProcess inscriptionProcess;
+
+    //Porque LearningProgram tiene List<Course>
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "curriculum")
+    @JsonIgnore
+    private List<LearningProgram> learningPrograms;
+
+
 }
 

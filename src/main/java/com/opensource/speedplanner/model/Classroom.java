@@ -3,6 +3,8 @@ package com.opensource.speedplanner.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -43,4 +45,10 @@ public class Classroom {
             inverseJoinColumns = {@JoinColumn(name = "course_id")})
     @JsonIgnore
     List<Course> courses;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "education_provider_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private EducationProvider educationProvider;
 }
