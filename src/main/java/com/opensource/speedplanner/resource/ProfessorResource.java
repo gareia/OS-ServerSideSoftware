@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfessorResource {
-   // private int code;
+    private Long id;
+    private Long code;
     private Long idNumber;
     private String names;
     private String lastNames;

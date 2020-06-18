@@ -30,7 +30,7 @@ public class ProfessorController {
     private ProfessorService professorService;
 
 
-    /*
+
     @Operation(summary = "Create Professor", description = "Creates a new professor.", tags = { "professor" })
     @PostMapping("/professors/")
     public ProfessorResource createProfessor(@Valid @RequestBody SaveProfessorResource resource){
@@ -52,10 +52,8 @@ public class ProfessorController {
         return convertToResource(professorService.updateProfessor(professorId, convertToEntity(resource)));
     }
 
-     */
-
-    //@Operation(summary = "Get All Professors", description = "Gets every existing professor in pages",
-     //       tags = { "professors" })
+    @Operation(summary = "Get All Professors", description = "Gets every existing professor in pages",
+            tags = { "professors" })
     @GetMapping("/professors")
     public Page<ProfessorResource> getAllProfessors(Pageable pageable){
         Page<Professor> professorPage = professorService.getAllProfessors(pageable);
@@ -63,7 +61,7 @@ public class ProfessorController {
             collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-/*
+
     @Operation(summary = "Delete Professor", description = "Deletes a particular professor, given its Id.",
             tags = { "professors" })
     @DeleteMapping("professors/{professorId}")
@@ -71,14 +69,13 @@ public class ProfessorController {
         return professorService.deleteProfessor(professorId);
     }
 
- */
+
  private ProfessorResource convertToResource(Professor entity){
         return mapper.map(entity, ProfessorResource.class);
     }
-
     private Professor convertToEntity(SaveProfessorResource resource){
+
         return mapper.map(resource, Professor.class);
     }
-
 
 }

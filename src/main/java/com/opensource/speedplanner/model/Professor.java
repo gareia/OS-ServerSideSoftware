@@ -20,20 +20,21 @@ public class Professor {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    /*
-    @Column(unique=true)
-    private int code;*/
+    @Column(name = "codes", unique=true)
+    private int code;
 
-    @Column(unique=true)
+    @Column(name = "id_numbers", unique=true)
     @NotBlank
     @NotNull
     private Long idNumber;
 
+    @Column(name = "names")
     @NotBlank
     @NotNull
     @Size(max=35)
     private String names;
 
+    @Column(name = "last_names")
     @NotBlank
     @NotNull
     @Size(max=35)

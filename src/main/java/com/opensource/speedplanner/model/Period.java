@@ -1,6 +1,5 @@
 package com.opensource.speedplanner.model;
 
-/*
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +21,15 @@ public class Period { //Agregar anotaciones
     private Long id;
     @NotBlank
     @NotNull
-    @Column(unique = true)
+    @Column(unique = true, name = "codes")
     private int code;
     @NotNull
+    @Column(name = "start_dates")
     private Date startDate;
     @NotNull
+    @Column(name = "end_dates")
     private Date endDate;
 
-    /*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "learning_program_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -40,6 +40,4 @@ public class Period { //Agregar anotaciones
     @JoinColumn(name = "inscription_process_id", referencedColumnName = "id")
     @JsonIgnore
     private InscriptionProcess inscriptionProcess;
-
 }
-*/

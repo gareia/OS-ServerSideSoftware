@@ -1,6 +1,5 @@
 package com.opensource.speedplanner.controller;
 
-/*
 import com.opensource.speedplanner.model.Period;
 import com.opensource.speedplanner.resource.PeriodResource;
 import com.opensource.speedplanner.resource.SavePeriodResource;
@@ -37,7 +36,7 @@ public class PeriodController {
         return mapper.map(entity, PeriodResource.class);
     }
 
-    /*
+
     @Operation(summary = "Create Period", description = "Creates a new period for a Learning Program, given" +
             "its Id.", tags = { "periods" })
     @PostMapping("/learningPrograms/{learningProgramId}/periods")
@@ -58,7 +57,7 @@ public class PeriodController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    /*
+
     @Operation(summary = "Get Period by Id and Learning Program Id", description = "Gets and individual" +
             "period, given its Id and its corresponding Learning Program Id.", tags = { "periods" })
     @GetMapping("/learningPrograms/{learningProgramId}/periods/{periodId}")
@@ -86,5 +85,3 @@ public class PeriodController {
 
 
 }
-
-*/
