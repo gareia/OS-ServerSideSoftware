@@ -12,31 +12,31 @@ public class SaveCourseResource {
 
     @NotBlank
     @NotNull
-    public String code;
+    private String code;
 
     @NotBlank
     @NotNull
-    public String name;
+    private String name;
 
     @NotBlank
     @NotNull
-    public Long totalNumberOfStudents;
+    private Long totalNumberOfStudents;
 
     @NotNull
-    public boolean isOptional;
+    private boolean isOptional;
 
     @NotNull
-    public boolean isVirtual;
-
-    @NotBlank
-    @NotNull
-    public int semester;
+    private boolean isVirtual;
 
     @NotBlank
     @NotNull
-    public int numberOfCredits;
+    private int semester;
 
     @NotBlank
     @NotNull
-    public int credits;
+    private int numberOfCredits;
+
+    @NotBlank
+    @NotNull
+    private int credits;
 }
