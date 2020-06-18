@@ -30,31 +30,46 @@ public class SectionScheduleController {
 
     @Operation(summary = "Create Section schedule", description = "Create a Section schedule by Section Id " +
             "and given resource", tags = {"section schedules"})
-    @PostMapping("/sectionSchedules")
-    public SectionScheduleResource createSectionSchedule(@Valid @RequestBody SaveSectionScheduleResource resource) {
-        return convertToResource(sectionScheduleService.createSectionSchedule(convertToEntity(resource)));
+    @PostMapping("/sections/{sectionId}/sectionSchedules")
+    public SectionScheduleResource createSectionSchedule(@PathVariable(name = "sectionId") Long sectionId,
+                                                         @Valid @RequestBody SaveSectionScheduleResource resource) {
+        return convertToResource(sectionScheduleService.createSectionSchedule(sectionId, convertToEntity(resource)));
+    }
+
+    @Operation(summary = "Get All Section schedules by Section Id", description = "Get All Section schedules " +
+            "by specifying Section Id", tags = {"section schedules"})
+    @GetMapping("/sections/{sectionId}/sectionSchedules")
+    public Page<SectionScheduleResource> getAllSectionSchedulesBySectionId(
+            @PathVariable(name = "sectionId") Long sectionId,
+            Pageable pageable) {
+        Page<SectionSchedule> sectionSchedulesPage = sectionScheduleService.getAllSectionSchedulesBySectionId(sectionId, pageable);
+        List<SectionScheduleResource> resources = sectionSchedulesPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 
     @Operation(summary = "Get Section schedule by Id and Section Id", description = "Get a Section schedule " +
             "by specifying Id and Section Id", tags = {"section schedules"})
-    @GetMapping("/sectionSchedules/{id}")
-    public SectionScheduleResource getSectionScheduleById(@PathVariable(name = "id") Long sectionScheduleId) {
-        return convertToResource(sectionScheduleService.getSectionScheduleById(sectionScheduleId));
+    @GetMapping("/sections/{sectionId}/sectionSchedules/{sectionScheduleId}")
+    public SectionScheduleResource getSectionScheduleByIdAndSectionId(@PathVariable(name = "sectionId") Long sectionId,
+                                                          @PathVariable(name = "sectionScheduleId") Long sectionScheduleId) {
+        return convertToResource(sectionScheduleService.getSectionScheduleByIdAndSectionId(sectionId, sectionScheduleId));
     }
 
     @Operation(summary = "Update Section schedule", description = "Update a Section schedule by specifying Id, " +
             "Section Id and given resource", tags = {"section schedules"})
-    @PutMapping("/sectionSchedules/{id}")
-    public SectionScheduleResource updateSectionSchedule(@PathVariable(name = "id") Long sectionScheduleId,
-                                                         @Valid @RequestBody SaveSectionScheduleResource resource) {
-        return convertToResource(sectionScheduleService.updateSectionSchedule(sectionScheduleId, convertToEntity(resource)));
+    @PutMapping("/sections/{sectionId}/sectionSchedules/{sectionScheduleId}")
+    public SectionScheduleResource updateSectionSchedule(@PathVariable(name = "sectionId") Long sectionId,
+    @PathVariable(name = "sectionScheduleId") Long sectionScheduleId,
+    @Valid @RequestBody SaveSectionScheduleResource resource) {
+        return convertToResource(sectionScheduleService.updateSectionSchedule(sectionId, sectionScheduleId, convertToEntity(resource)));
     }
 
     @Operation(summary = "Delete Section schedule", description = "Delete a Section schedule by specifying Id " +
             "and Section Id", tags = {"section schedules"})
-    @DeleteMapping("/sectionSchedules/{id}")
-    public ResponseEntity<?> deleteSectionSchedules(@PathVariable(name = "id") Long sectionSchedulesId) {
-        return sectionScheduleService.deleteSectionSchedule(sectionSchedulesId);
+    @DeleteMapping("/sections/{sectionId}/sectionSchedules/{sectionScheduleId}")
+    public ResponseEntity<?> deleteSectionSchedules(@PathVariable(name = "sectionId") Long sectionId,
+                                                    @PathVariable(name = "sectionScheduleId") Long sectionScheduleId){
+        return sectionScheduleService.deleteSectionSchedule(sectionId, sectionScheduleId);
     }
 
     @Operation(summary = "Get All Section schedules by Section Id", description = "Get All Section schedules " +

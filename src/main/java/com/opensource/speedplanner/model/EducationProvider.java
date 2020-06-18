@@ -43,15 +43,14 @@ public class EducationProvider {
 
     //private List<Classroom> classrooms;
 
-	/*
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "subscription_id", referencedColumnName = "id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
     private Subscription subscription;
 
-	@OneToOne(mappedBy = "education_providers")
-	private Profile profile;
+	/*@OneToOne(mappedBy = "education_providers")
+	private Profile profile;*/
 
-	 */
 }

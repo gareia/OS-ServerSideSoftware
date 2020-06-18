@@ -1,5 +1,6 @@
 package com.opensource.speedplanner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Role {
     @Column(name = "types")
     private int type;
 
-    @OneToOne(mappedBy = "roles")
-    User user;
+    @OneToOne(mappedBy = "role")
+    @JsonIgnore
+    private User user;
 }

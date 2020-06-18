@@ -40,6 +40,12 @@ public class UserController {
         return convertToResource(userService.getUserById(userId));
     }
 
+    @GetMapping("/roles/{roleId}/users/{userId}")
+    public UserResource getUserByIdAndRoleId(@PathVariable(name = "roleId") Long roleId,
+                                                   @PathVariable(name = "userId") Long userId) {
+        return convertToResource(userService.getUserByIdAndRoleId(roleId, userId));
+    }
+
     @Operation(summary = "Update User", description = "Update User by specifying Id and given resource", tags = {"users"})
     @PutMapping("/users/{id}")
     public UserResource updateUser(@PathVariable(name = "id") Long userId, @Valid @RequestBody SaveUserResource resource) {

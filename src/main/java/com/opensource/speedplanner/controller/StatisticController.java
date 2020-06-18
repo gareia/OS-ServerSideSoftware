@@ -3,6 +3,7 @@ package com.opensource.speedplanner.controller;
 import com.opensource.speedplanner.model.Statistic;
 import com.opensource.speedplanner.resource.SaveStatisticResource;
 import com.opensource.speedplanner.resource.StatisticResource;
+import com.opensource.speedplanner.resource.UserResource;
 import com.opensource.speedplanner.service.StatisticService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,10 +29,12 @@ public class StatisticController {
     @Autowired
     private StatisticService statisticService;
 
-    @Operation(summary = "Create Statistic", description = "Create Statistic by given resource", tags = {"statistics"})
-    @PostMapping("/statistics")
-    public StatisticResource createStatistic(@Valid @RequestBody SaveStatisticResource resource) {
-        return convertToResource(statisticService.createStatistic(convertToEntity(resource)));
+    @Operation(summary = "Create Statistic", description = "Create a Statistic by User Id and given resource",
+            tags = {"statistics"})
+    @PostMapping("/users/{userId}/statistics")
+    public StatisticResource createStatistic(@PathVariable(name = "userId") Long userId,
+                                             @Valid @RequestBody SaveStatisticResource resource) {
+        return convertToResource(statisticService.createStatistic(userId, convertToEntity(resource)));
     }
 
     @Operation(summary = "Get Statistic by Id", description = "Get Statistic by specifying Id", tags = {"statistics"})
@@ -40,17 +43,27 @@ public class StatisticController {
         return convertToResource(statisticService.getStatisticById(statisticId));
     }
 
-    @Operation(summary = "Update Statistic", description = "Update Statistic by specifying Id and given resource",
-            tags = {"statistics"})
-    @PutMapping("/statistics/{id}")
-    public StatisticResource updateStatistic(@PathVariable(name = "id") Long statisticId, @Valid @RequestBody SaveStatisticResource resource) {
-        return convertToResource(statisticService.updateStatistic(statisticId, convertToEntity(resource)));
+    @Operation(summary = "Get Statistic by Id and User Id", description = "Get Statistic by specifying Id and specifying User Id", tags ={"statistics"})
+    @GetMapping("/users/{userId}/statistics/{statisticId}")
+    public StatisticResource getStatisticByIdAndUserId(@PathVariable(name = "userId") Long userId,
+                                             @PathVariable(name = "statisticId") Long statisticId) {
+        return convertToResource(statisticService.getStatisticByIdAndUserId(userId, statisticId));
     }
 
-    @Operation(summary = "Delete Statistic", description = "Delete Statistic by specifying Id", tags = {"statistics"})
-    @DeleteMapping("/statistics/{id}")
-    public ResponseEntity<?> deleteStatistic(@PathVariable(name = "id") Long statisticId) {
-        return statisticService.deleteStatistic(statisticId);
+    @Operation(summary = "Update Statistic", description = "Update Statistic by specifying Id " + " user Id and given resource",
+            tags = {"statistics"})
+    @PutMapping("/users/{userId}/statistics/{statisticId}")
+    public StatisticResource updateStatistic(@PathVariable(name = "userId") Long userId,
+                                             @PathVariable(name = "statisticId") Long statisticId,
+                                             @Valid @RequestBody SaveStatisticResource resource) {
+        return convertToResource(statisticService.updateStatistic(userId, statisticId,  convertToEntity(resource)));
+    }
+
+    @Operation(summary = "Delete Statistic", description = "Delete Statistic by specifying Id" + "and User Id", tags = {"statistics"})
+    @DeleteMapping("/users/{userId}/statistics/{statisticId}")
+    public ResponseEntity<?> deleteStatistic(@PathVariable(name = "userId") Long userId,
+                                             @PathVariable(name = "statisticId") Long statisticId) {
+        return statisticService.deleteStatistic(userId, statisticId);
     }
 
     @Operation(summary = "Get all Statistics", description = "Get All Statistics by Pages", tags = {"statistics"})

@@ -45,13 +45,14 @@ public class LearningProgram {
             joinColumns = {@JoinColumn(name = "learning_program_id")},
             inverseJoinColumns = {@JoinColumn(name = "course_id")})
             @JsonIgnore
-    private List<Course> curriculum;
+    private List<Course> curriculum;*/
 
 
-	@OneToOne(mappedBy = "learning_programs")
+	@OneToOne(mappedBy = "learningProgram")
+    @JsonIgnore
     private Statistic statistic;
 
-    @OneToOne(mappedBy = "learning_programs")
+    /*@OneToOne(mappedBy = "learning_programs")
     private Profile profile;
     */
 
