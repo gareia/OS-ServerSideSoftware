@@ -66,13 +66,13 @@ public class Course {
     @NotNull
     @Column(name= "credits")
     private int credits;
-/*
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "courses")
     @JsonIgnore
     private List<Classroom> classrooms;
-
+/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     @JsonIgnore

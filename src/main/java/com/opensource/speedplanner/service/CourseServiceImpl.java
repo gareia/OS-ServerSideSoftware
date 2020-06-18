@@ -5,10 +5,12 @@ package com.opensource.speedplanner.service;
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.Course;
 //import com.opensource.speedplanner.repository.ClassroomRepository;
+import com.opensource.speedplanner.repository.ClassroomRepository;
 import com.opensource.speedplanner.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +22,24 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
-    //@Autowired
-    //private ClassroomRepository classroomRepository;
+    @Autowired
+    private ClassroomRepository classroomRepository;
 
     @Override
     public Page<Course> getAllCourse(Pageable pageable) {
         return courseRepository.findAll(pageable);
 
     }
-/*
+
     @Override
     public Page<Course> getAllCourseByClassroomId(Long classroomId, Pageable pageable) {
         return classroomRepository.findById(classroomId).map(classroom -> {
-            List<Course> courses = classroom.getRequisites();
+            List<Course> courses = classroom.getCourses();
             int courseCount = courses.size();
             return new PageImpl<>(courses, pageable, courseCount);
         })
                 .orElseThrow(() -> new ResourceNotFoundException("Classroom", "Id",classroomId));
-    }*/
+    }
 
     @Override
     public Course getCourseById(Long courseId) {

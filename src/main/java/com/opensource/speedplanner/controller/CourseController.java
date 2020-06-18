@@ -47,15 +47,14 @@ public class CourseController {
             @PathVariable(name = "id") Long courseId) {
         return convertToResource(courseService.getCourseById(courseId));
     }
-/*
-    @Operation(summary = "Get Courses by ClassroomId", description = "Get all Courses by pages and specifying Classroom Id", tags = { "courses" })
+
     @GetMapping("/classrooms/{classroomId}/courses")
     public Page<CourseResource> getAllCourseByClassroomId(@PathVariable(name = "classroomId") Long classroomId, Pageable pageable) {
-        Page<Course> coursesPage = courseService.getAllCourseByClassroomId(classroomId, pageable);
-        List<CourseResource> resources = coursesPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources, pageable, resources.size());
+        List<CourseResource> courses = courseService.getAllCourseByClassroomId(classroomId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int courseCount = courses.size();
+        return new PageImpl<>(courses, pageable, courseCount);
     }
-*/
+
     @Operation(summary = "Create Course", description = "Create a Course by given resource", tags = {"courses"})
     @PostMapping("/courses")
     public CourseResource createCourse(@Valid @RequestBody SaveCourseResource resource)  {
@@ -63,7 +62,7 @@ public class CourseController {
         return convertToResource(courseService.createCourse(course));
     }
 
-    @Operation(summary = "Update Course", description = "Update a Course by specifying Id and given resource", tags = {"classrooms"})
+    @Operation(summary = "Update Course", description = "Update a Course by specifying Id and given resource", tags = {"courses"})
     @PutMapping("/courses/{id}")
     public CourseResource updateCourse(@PathVariable(name = "id") Long courseId, @Valid @RequestBody SaveCourseResource resource) {
         Course course = convertToEntity(resource);

@@ -5,38 +5,30 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class SaveCourseResource {
-
-    @NotBlank
+public class SaveProfileResource {
     @NotNull
-    private String code;
-
     @NotBlank
-    @NotNull
+    @Size(max = 20)
     private String name;
 
+    @NotNull
     @NotBlank
-    @NotNull
-    private Long totalNumberOfStudents;
+    @Size(max = 20)
+    private String lastNames;
 
     @NotNull
-    private boolean isOptional;
-
-    @NotNull
-    private boolean isVirtual;
-
     @NotBlank
+    private boolean gender;
+
     @NotNull
+    @NotBlank
     private int semester;
 
-    @NotBlank
     @NotNull
-    private int numberOfCredits;
-
     @NotBlank
-    @NotNull
-    private int credits;
+    private Long idNumber;
 }

@@ -6,14 +6,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CourseResource {
- public int id;
- public String code;
- public String name;
- public Long totalNumberOfStudents;
- public boolean isOptional;
- public boolean isVirtual;
- public int semester;
- public int numberOfCredits;
- public int credits;
+ private int id;
+ private String code;
+ private String name;
+ private Long totalNumberOfStudents;
+ private boolean isOptional;
+ private boolean isVirtual;
+ private int semester;
+ private int numberOfCredits;
+ private int credits;
 
 }
