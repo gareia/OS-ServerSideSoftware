@@ -32,11 +32,12 @@ public class Statistic {
     @Column(name ="registered_students_in_periods")
     private int RegisteredStudentsInPeriod;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "learning_program_id", referencedColumnName = "id")
     @JsonIgnore
     private LearningProgram learningProgram;
 
-    @OneToOne(mappedBy = "statistics")
-    User user;*/
+    @OneToOne(mappedBy = "statistic")
+    @JsonIgnore
+    private User user;
 }

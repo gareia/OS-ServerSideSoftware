@@ -55,6 +55,7 @@ public class Profile {
     @Column(name = "id_names" , unique = true)
     private Long idNumber;
 
-    /*@OneToOne(mappedBy = "profiles")
-    User user;*/
+    @OneToOne(mappedBy = "profile")
+    @JsonIgnore
+    private User user;
 }

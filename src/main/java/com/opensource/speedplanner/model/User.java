@@ -32,24 +32,24 @@ public class User {
     @NotBlank
     @Column(name="emails", unique = true)
     private String email;
-    /*
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "profile_id", referencedColumnName = "id")
-        @JsonIgnore
-        private Profile profile;
 
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "role_id", referencedColumnName = "id")
-        @JsonIgnore
-        private Role role;
-    */
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Profile profile;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Role role;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inscription_process_id", referencedColumnName = "id")
     @JsonIgnore
     private InscriptionProcess inscriptionProcess;
-/*
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "statistic_id", referencedColumnName = "id")
     @JsonIgnore
-    private Statistic statistic;*/
+    private Statistic statistic;
 }

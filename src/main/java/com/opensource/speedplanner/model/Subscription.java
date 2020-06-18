@@ -1,4 +1,5 @@
 package com.opensource.speedplanner.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,7 @@ public class Subscription {
     @Column(name= "end_dates")
     private Date endDate;
 
-    /*@OneToOne(mappedBy = "subscriptions")
-    EducationProvider educationProvider;*/
+    @OneToOne(mappedBy = "subscription")
+    @JsonIgnore
+    EducationProvider educationProvider;
 }

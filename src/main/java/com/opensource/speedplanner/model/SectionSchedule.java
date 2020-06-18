@@ -44,9 +44,9 @@ public class SectionSchedule {
     @Column(name ="days")
     private String day;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "section_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    Section section;*/
+    Section section;
 }
