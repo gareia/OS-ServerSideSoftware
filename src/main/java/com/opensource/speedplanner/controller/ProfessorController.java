@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Tag(name="professors", description = "Professors API")
+@Tag(name="professors", description = "Professors API")
 @RestController
 @RequestMapping("/api")
 public class ProfessorController {

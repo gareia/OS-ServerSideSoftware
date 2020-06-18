@@ -14,7 +14,6 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Autowired
     ProfessorRepository professorRepository;
 
-    /*
     @Override
     public Professor createProfessor(Professor professor) {
         return professorRepository.save(professor);
@@ -46,8 +45,6 @@ public class ProfessorServiceImpl implements ProfessorService {
         }).orElseThrow(() -> new ResourceNotFoundException("Professor", "Id", professorId));
     }
 
-
-     */
     @Override
     public Page<Professor> getAllProfessors(Pageable pageable) {
         return professorRepository.findAll(pageable);
