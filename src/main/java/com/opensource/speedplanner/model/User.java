@@ -19,28 +19,30 @@ public class User {
 
     @NotNull
     @NotBlank
-    @Column(unique = true)
+    @Column(name="usernames",unique = true)
     @Size(max = 30)
     private String username;
 
     @NotNull
     @NotBlank
+    @Column(name="password")
     private String password;
 
     @NotNull
     @NotBlank
+    @Column(name="emails", unique = true)
     private String email;
-/*
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Profile profile;
+    /*
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "profile_id", referencedColumnName = "id")
+        @JsonIgnore
+        private Profile profile;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Role role;
-*/
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "role_id", referencedColumnName = "id")
+        @JsonIgnore
+        private Role role;
+    */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inscription_process_id", referencedColumnName = "id")
     @JsonIgnore
