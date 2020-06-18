@@ -7,6 +7,7 @@ import com.opensource.speedplanner.model.Course;
 //import com.opensource.speedplanner.repository.ClassroomRepository;
 import com.opensource.speedplanner.repository.ClassroomRepository;
 import com.opensource.speedplanner.repository.CourseRepository;
+import com.opensource.speedplanner.repository.LearningProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageImpl;
@@ -24,6 +25,8 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private ClassroomRepository classroomRepository;
+    @Autowired
+    private LearningProgramRepository learningProgramRepository;
 
     @Override
     public Page<Course> getAllCourse(Pageable pageable) {
@@ -39,6 +42,29 @@ public class CourseServiceImpl implements CourseService {
             return new PageImpl<>(courses, pageable, courseCount);
         })
                 .orElseThrow(() -> new ResourceNotFoundException("Classroom", "Id",classroomId));
+    }
+
+    @Override
+    public Page<Course> getAllCourseByLearningProgramId(Long learningProgramId, Pageable pageable) {
+        return learningProgramRepository.findById(learningProgramId).map(learningProgram -> {
+            List<Course> courses = learningProgram.getCurriculum();
+            int courseCount = courses.size();
+            return new PageImpl<>(courses, pageable, courseCount);
+        })
+                .orElseThrow(() -> new ResourceNotFoundException("Learning Program", "Id",learningProgramId));
+    }
+
+    @Override
+    public Page<Course> getAllCoursesByInscriptionProcessId(Long inscriptionProcessId, Pageable pageable) {
+        return courseRepository.findByInscriptionProcessId(inscriptionProcessId, pageable);
+    }
+
+    @Override
+    public Course getCourseByIdAndInscriptionProcessId(Long inscriptionProcessId, Long courseId) {
+        return courseRepository.findByIdAndInscriptionProcessId(courseId, inscriptionProcessId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Comment not found with Id " + courseId +
+                                " and PostId " + inscriptionProcessId));
     }
 
     @Override

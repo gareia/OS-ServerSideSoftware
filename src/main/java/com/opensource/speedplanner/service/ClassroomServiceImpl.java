@@ -39,6 +39,14 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     @Override
+    public Classroom getClassroomByIdAndEducationProviderId(Long educationProviderId, Long classroomId) {
+        return classroomRepository.findByIdAndEducationProviderId(classroomId, educationProviderId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Classroom not found with Id " + classroomId +
+                                " and EducationProviderId " + educationProviderId));
+    }
+
+    @Override
     public Classroom assignClassroomCourse(Long classroomId, Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Course", "Id", courseId));

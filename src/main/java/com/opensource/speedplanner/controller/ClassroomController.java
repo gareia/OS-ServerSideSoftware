@@ -80,6 +80,12 @@ public class ClassroomController {
 
         return convertToResource(classroomService.unassignClassroomCourse(classroomId, courseId));
     }
+    @GetMapping("/educationProviders/{educationProviderId}/classroom/{classroomId}")
+    public ClassroomResource getClassroomByIdAndEducationProviderId(@PathVariable(name = "educationProviderId") Long educationProviderId,
+                                                   @PathVariable(name = "classroomId") Long classroomId) {
+        return convertToResource(classroomService.getClassroomByIdAndEducationProviderId(educationProviderId, classroomId));
+    }
+
 
     private Classroom convertToEntity(SaveClassroomResource resource){
         return mapper.map(resource, Classroom.class);

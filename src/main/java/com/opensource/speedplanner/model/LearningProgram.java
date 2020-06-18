@@ -38,7 +38,7 @@ public class LearningProgram {
 
     //private List<Period> periodList;
 
-    /*
+
 	@ManyToMany(fetch = FetchType.LAZY,
     cascade = {CascadeType.PERSIST, CascadeType.MERGE})
             @JoinTable(name = "learning_programs_courses",
@@ -47,7 +47,7 @@ public class LearningProgram {
             @JsonIgnore
     private List<Course> curriculum;
 
-
+/*
 	@OneToOne(mappedBy = "learning_programs")
     private Statistic statistic;
 
