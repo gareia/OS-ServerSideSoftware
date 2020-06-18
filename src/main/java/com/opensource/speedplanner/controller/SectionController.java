@@ -1,6 +1,7 @@
 package com.opensource.speedplanner.controller;
 
 import com.opensource.speedplanner.model.Section;
+import com.opensource.speedplanner.resource.CourseResource;
 import com.opensource.speedplanner.resource.SaveSectionResource;
 import com.opensource.speedplanner.resource.SectionResource;
 import com.opensource.speedplanner.service.SectionService;
@@ -9,10 +10,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "sections", description = "Sections API")
 @RestController
@@ -23,6 +29,21 @@ public class SectionController {
 
     @Autowired
     private SectionService sectionService;
+
+    @GetMapping("/courses/{courseId}/sections")
+    public Page<SectionResource> getAllSectionsByCourseId(
+            @PathVariable(name = "courseId") Long courseId,
+            Pageable pageable) {
+        Page<Section> sectionPage = sectionService.getAllSectionsByCourseId(courseId, pageable);
+        List<SectionResource> resources = sectionPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
+
+    @GetMapping("/courses/{courseId}/sections/{sectionId}")
+    public SectionResource getSectionByIdAndCourseId(@PathVariable(name = "courseId") Long courseId,
+                                                   @PathVariable(name = "sectionId") Long sectionId) {
+        return convertToResource(sectionService.getSectionByIdAndCourseId(courseId, sectionId));
+    }
 
     @Operation(summary = "Create Section", description = "Create a Section by Course Id and given resource",
             tags = {"sections"})

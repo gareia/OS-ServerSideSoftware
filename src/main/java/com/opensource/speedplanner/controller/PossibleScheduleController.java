@@ -1,6 +1,8 @@
 package com.opensource.speedplanner.controller;
 
+import com.opensource.speedplanner.model.Classroom;
 import com.opensource.speedplanner.model.PossibleSchedule;
+import com.opensource.speedplanner.resource.ClassroomResource;
 import com.opensource.speedplanner.resource.PossibleScheduleResource;
 import com.opensource.speedplanner.resource.SavePossibleScheduleResource;
 import com.opensource.speedplanner.service.PossibleScheduleService;
@@ -88,5 +90,22 @@ public class PossibleScheduleController {
                                                     @PathVariable(name = "possibleScheduleId")
                                                             Long possibleScheduleId){
         return possibleScheduleService.deletePossibleSchedule(possibleScheduleId, inscriptionProcessId);
+    }
+
+    @PostMapping("/possibleSchedules/{possibleScheduleId}/courses/{courseId}")
+    public PossibleScheduleResource assignPossibleScheduleCourse(@PathVariable(name = "possibleScheduleId") Long possibleScheduleId,
+                                                   @PathVariable(name = "courseId") Long courseId) {
+        return convertToResource(possibleScheduleService.assignPossibleScheduleCourse(possibleScheduleId, courseId));
+    }
+    @DeleteMapping("/possibleSchedules/{possibleScheduleId}/course/{courseId}")
+    public PossibleScheduleResource unassignPossibleScheduleCourse(@PathVariable(name = "possibleScheduleId") Long possibleScheduleId,
+                                                                 @PathVariable(name = "courseId") Long courseId) {
+        return convertToResource(possibleScheduleService.assignPossibleScheduleCourse(possibleScheduleId, courseId));
+    }
+    @GetMapping("/courses/{courseId}/possibleSchedules")
+    public Page<PossibleScheduleResource> getAllPossibleScheduleByCourseId(@PathVariable(name = "courseId") Long courseId, Pageable pageable) {
+        Page<PossibleSchedule> possibleSchedulePage = possibleScheduleService.getAllPossibleScheduleByCourseId(courseId, pageable);
+        List<PossibleScheduleResource> resources = possibleSchedulePage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 }

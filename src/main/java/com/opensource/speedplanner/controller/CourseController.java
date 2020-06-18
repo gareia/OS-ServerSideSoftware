@@ -54,6 +54,12 @@ public class CourseController {
         int courseCount = courses.size();
         return new PageImpl<>(courses, pageable, courseCount);
     }
+    @GetMapping("/possibleSchedules/{possibleScheduleId}/courses")
+    public Page<CourseResource> getAllCourseByPossibleScheduleId(@PathVariable(name = "possibleScheduleId") Long possibleScheduleId, Pageable pageable) {
+        List<CourseResource> courses = courseService.getAllCoursesByPossibleScheduleId(possibleScheduleId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int courseCount = courses.size();
+        return new PageImpl<>(courses, pageable, courseCount);
+    }
     @GetMapping("/learning programs/{learningProgramId}/courses")
     public Page<CourseResource> getAllCourseByLearningProgramId(@PathVariable(name = "learningProgramId") Long learningProgramId, Pageable pageable) {
         List<CourseResource> courses = courseService.getAllCourseByLearningProgramId(learningProgramId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());

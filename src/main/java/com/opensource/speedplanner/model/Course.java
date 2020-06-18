@@ -34,10 +34,6 @@ public class Course {
     @Column(name= "names")
     private String name;
 
-    //@NotBlank
-    //@NotNull
-    //private List<Section> sections;
-
     @NotBlank
     @NotNull
     @Size(max = 40)
@@ -80,16 +76,18 @@ public class Course {
 
     @OneToMany(mappedBy = "requisite")
     private List<Course> courses;
-
+*/
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "courses")
     @JsonIgnore
     private List<PossibleSchedule> possibleSchedules;
-
+/*
 	@OneToOne(mappedBy = "courses")
     private SectionRequest sectionRequest;
-*/
+
+
+ */
      //Porque InscriptionProcess tiene List<Course>
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "inscription_process_id", nullable = false)

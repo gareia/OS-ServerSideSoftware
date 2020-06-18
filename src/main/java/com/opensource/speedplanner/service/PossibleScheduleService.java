@@ -12,4 +12,7 @@ public interface PossibleScheduleService {
     ResponseEntity<?> deletePossibleSchedule(Long possibleScheduleId, Long inscriptionProcessId);
     Page<PossibleSchedule> getAllPossibleSchedules(Pageable pageable);
     PossibleSchedule getByIdAndInscriptionProcessId(Long possibleScheduleId, Long inscriptionProcessId);
+    PossibleSchedule assignPossibleScheduleCourse(Long possibleScheduleId, Long courseId);
+    PossibleSchedule unassignPossibleScheduleCourse(Long possibleScheduleId, Long courseId);
+    Page<PossibleSchedule> getAllPossibleScheduleByCourseId(Long courseId, Pageable pageable);
 }

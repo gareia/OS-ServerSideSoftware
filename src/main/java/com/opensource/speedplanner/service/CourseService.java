@@ -13,6 +13,7 @@ public interface CourseService {
     Page<Course> getAllCourseByClassroomId(Long classroomId, Pageable pageable);
     Page<Course> getAllCourseByLearningProgramId(Long learningProgramId, Pageable pageable);
     Page<Course> getAllCoursesByInscriptionProcessId(Long inscriptionProcessId, Pageable pageable);
+    Page<Course> getAllCoursesByPossibleScheduleId(Long possibleScheduleId, Pageable pageable);
     Course getCourseByIdAndInscriptionProcessId(Long inscriptionProcessId, Long courseId);
     Course getCourseById(Long courseId);
     Course createCourse(Course course);

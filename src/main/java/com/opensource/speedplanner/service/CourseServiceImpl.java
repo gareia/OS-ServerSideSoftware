@@ -8,6 +8,7 @@ import com.opensource.speedplanner.model.Course;
 import com.opensource.speedplanner.repository.ClassroomRepository;
 import com.opensource.speedplanner.repository.CourseRepository;
 import com.opensource.speedplanner.repository.LearningProgramRepository;
+import com.opensource.speedplanner.repository.PossibleScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 //import org.springframework.data.domain.PageImpl;
@@ -27,6 +28,8 @@ public class CourseServiceImpl implements CourseService {
     private ClassroomRepository classroomRepository;
     @Autowired
     private LearningProgramRepository learningProgramRepository;
+    @Autowired
+    private PossibleScheduleRepository possibleScheduleRepository;
 
     @Override
     public Page<Course> getAllCourse(Pageable pageable) {
@@ -57,6 +60,16 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Page<Course> getAllCoursesByInscriptionProcessId(Long inscriptionProcessId, Pageable pageable) {
         return courseRepository.findByInscriptionProcessId(inscriptionProcessId, pageable);
+    }
+
+    @Override
+    public Page<Course> getAllCoursesByPossibleScheduleId(Long possibleScheduleId, Pageable pageable) {
+        return possibleScheduleRepository.findById(possibleScheduleId).map(possibleSchedule -> {
+            List<Course> courses = possibleSchedule.getCourses();
+            int courseCount = courses.size();
+            return new PageImpl<>(courses, pageable, courseCount);
+        })
+                .orElseThrow(() -> new ResourceNotFoundException("PossibleSchedule", "Id",possibleScheduleId));
     }
 
     @Override
