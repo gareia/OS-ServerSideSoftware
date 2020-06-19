@@ -16,6 +16,7 @@ import java.util.List;
 public class InscriptionProcess {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     private Long id;
 
     //private List<Course> courses;
@@ -30,6 +31,5 @@ public class InscriptionProcess {
 	private Period period;*/
 
 	@OneToOne(mappedBy = "inscriptionProcess")
-	@JsonIgnore
 	private User user;
 }

@@ -37,7 +37,7 @@ public class EducationProviderServiceImpl implements EducationProviderService{
     @Override
     public EducationProvider updateEducationProvider(Long educationProviderId, EducationProvider educationProviderDetails) {
         EducationProvider educationProvider = getEducationProviderById(educationProviderId);
-        //throw exception if educationProviderId isnt found
+        //throw exception if educationProviderId is not found
         educationProvider.setName(educationProviderDetails.getName());
         educationProvider.setNumberOfCareers(educationProviderDetails.getNumberOfCareers());
         return educationProviderRepository.save(educationProvider);
@@ -46,7 +46,7 @@ public class EducationProviderServiceImpl implements EducationProviderService{
     @Override
     public ResponseEntity<?> deleteEducationProvider(Long educationProviderId) {
         EducationProvider educationProvider = getEducationProviderById(educationProviderId);
-        //throw exception if educationProviderId isnt found
+        //throw exception if educationProviderId is not found
         educationProviderRepository.delete(educationProvider);
         return ResponseEntity.ok().build();
     }

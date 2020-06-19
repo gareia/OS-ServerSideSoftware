@@ -43,7 +43,6 @@ public class User {
 */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inscription_process_id", referencedColumnName = "id")
-    @JsonIgnore
     private InscriptionProcess inscriptionProcess;
 /*
     @OneToOne(cascade = CascadeType.ALL)
