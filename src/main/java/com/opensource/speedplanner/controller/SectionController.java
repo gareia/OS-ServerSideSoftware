@@ -1,6 +1,7 @@
 package com.opensource.speedplanner.controller;
 
 import com.opensource.speedplanner.model.Section;
+import com.opensource.speedplanner.model.SectionRequest;
 import com.opensource.speedplanner.resource.CourseResource;
 import com.opensource.speedplanner.resource.SaveSectionResource;
 import com.opensource.speedplanner.resource.SectionResource;
@@ -29,6 +30,15 @@ public class SectionController {
 
     @Autowired
     private SectionService sectionService;
+
+
+    @GetMapping("/sections")
+    public Page<SectionResource> getAllSections(Pageable pageable){
+        Page<Section> sections = sectionService.getAllSections(pageable);
+        List<SectionResource> resources = sections.getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }
 
     @GetMapping("/courses/{courseId}/sections")
     public Page<SectionResource> getAllSectionsByCourseId(

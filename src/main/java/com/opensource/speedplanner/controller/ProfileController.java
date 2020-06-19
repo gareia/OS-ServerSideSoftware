@@ -10,10 +10,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "profiles", description = "Profiles API")
 @RestController
@@ -24,6 +29,17 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Operation(summary = "Get Profile " , description = "Get all profiles",
+               tags = {"profiles"})
+    @GetMapping("/profiles")
+    public Page<ProfileResource> getAllProfiles(Pageable pageable){
+        Page<Profile> profiles = profileService.getAllProfiles(pageable);
+        List<ProfileResource> resources = profiles.getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }
+
 
     @Operation(summary = "Create Profile", description = "Create a Profile by User Id and given resource",
             tags = {"profiles"})

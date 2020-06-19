@@ -4,15 +4,20 @@ import com.opensource.speedplanner.model.SectionRequest;
 import com.opensource.speedplanner.resource.SaveSectionRequestResource;
 import com.opensource.speedplanner.resource.SectionRequestResource;
 import com.opensource.speedplanner.service.SectionRequestService;
-import com.opensource.speedplanner.service.SectionRequestServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "section requests", description = "Section requests API")
 @RestController
@@ -24,6 +29,22 @@ public class SectionRequestController {
     @Autowired
     private SectionRequestService sectionRequestService;
 
+    /*@GetMapping("/sections")
+    public Page<SectionResource> getAllSections(Pageable pageable){
+        Page<Section> sections = sectionService.getAllSections(pageable);
+        List<SectionResource> resources = sections.getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable,resources.size());
+    }*/
+    @Operation(summary = "Get Section request", description = "Get All Section request"
+               ,tags = {"section requests"})
+    @GetMapping("/section_requests")
+    public PageImpl<Object> getAllSectionRequests(Pageable pageable){
+        Page<SectionRequest> sectionRequests = sectionRequestService.getAllSectionRequests(pageable);
+        List<SectionRequestResource> resources = sectionRequests.getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<Object>(Collections.singletonList(resources),pageable,resources.size());
+    }
 
     @Operation(summary = "Create Section request", description = "Create a Section request by Inscription process Id and " +
             "given resource", tags = {"section requests"})

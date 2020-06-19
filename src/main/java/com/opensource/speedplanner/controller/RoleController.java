@@ -5,13 +5,19 @@ import com.opensource.speedplanner.resource.RoleResource;
 import com.opensource.speedplanner.resource.SaveRoleResource;
 import com.opensource.speedplanner.service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "roles", description = "Roles API")
 @RestController
@@ -22,6 +28,16 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @Operation(summary = "Get User roles" , description = "Get all roles ",
+             tags = {"roles"})
+    @GetMapping("/roles")
+    public Page<RoleResource> getAllRoles(Pageable pageable){
+        Page<Role> roles = roleService.getAllRoles(pageable);
+        List<RoleResource> resources = roles.getContent().stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<>(resources,pageable, resources.size());
+    }
 
     @Operation(summary = "Create Role", description = "Create a Role by User Id and given resource", tags = {"roles"})
     @PostMapping("/users/{userId}/roles")

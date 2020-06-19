@@ -31,8 +31,4 @@ public class SaveUserResource {
     @NotBlank
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "inscription_process_id", referencedColumnName = "id")
-    @JsonIgnore
-    private InscriptionProcess inscriptionProcess;
 }

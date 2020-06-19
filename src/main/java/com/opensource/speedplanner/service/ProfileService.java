@@ -1,11 +1,4 @@
 package com.opensource.speedplanner.service;
-/*
-    Page<Comment> getAllCommentsByPostId(Long postId, Pageable pageable);
-    Comment getCommentByIdAndPostId(Long postId, Long commentId);
-    Comment createComment(Long postId, Comment comment);
-    Comment updateComment(Long postId, Long commentId, Comment commentDetails);
-    ResponseEntity<?> deleteComment(Long postId, Long commentId);*/
-
 
 import com.opensource.speedplanner.model.Profile;
 import org.springframework.data.domain.Page;
