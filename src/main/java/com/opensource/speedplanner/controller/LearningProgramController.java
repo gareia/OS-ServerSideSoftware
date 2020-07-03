@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Tag(name="learning programs", description = "Learning programs API")
 @RestController
-@RequestMapping("/api/educationProviders/{educationProviderId}/learningPrograms")
+@RequestMapping("/api")
 public class LearningProgramController {
     @Autowired
     private ModelMapper mapper;
@@ -28,15 +28,17 @@ public class LearningProgramController {
 
     @Operation(summary = "Create Learning Program", description = "Create a LearningProgram by Education provider Id " +
             "and given resource", tags = {"learning programs"})
-    @PostMapping //Agrega nombres de carreras iguales apesar de @column unique en saveResource
+    @PostMapping("/educationProviders/{educationProviderId}/learningPrograms")
     public LearningProgramResource createLearningProgram(@PathVariable Long educationProviderId,
                                                          @Valid @RequestBody SaveLearningProgramResource resource){
         LearningProgram learningProgram = convertToEntity(resource);
         return convertToResource(learningProgramService.createLearningProgram(educationProviderId, learningProgram));
     }
+
+
     @Operation(summary = "Get All Learning programs by Education Provider Id", description = "Get All Learning programs " +
             "by Pages and Education provider Id", tags = {"learning programs"})
-    @GetMapping
+    @GetMapping("/educationProviders/{educationProviderId}/learningPrograms")
     public Page<LearningProgramResource> getAllLearningProgramsByEducationProviderId(
                                                                         @PathVariable Long educationProviderId,
                                                                         Pageable pageable){
@@ -46,17 +48,23 @@ public class LearningProgramController {
                 .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+
     @Operation(summary = "Get Learning program by Id and Education Provider Id", description = "Get a Learning program " +
             "by specifying Id and Education Provider Id", tags = {"learning programs"})
-    @GetMapping("/{learningProgramId}")
+    @GetMapping("/educationProviders/{educationProviderId}/learningPrograms/{learningProgramId}")
     public LearningProgramResource getLearningProgramByIdAndEducationProviderId(@PathVariable Long educationProviderId,
                                                                                 @PathVariable Long learningProgramId){
         return convertToResource(learningProgramService.getLearningProgramByIdAndEducationProviderId(educationProviderId, learningProgramId));
     }
 
+    @GetMapping("/profiles/{profileId}/learningProgram")
+    public LearningProgramResource getLearningProgramByProfileId(@PathVariable Long profileId){
+        return convertToResource(learningProgramService.getLearningProgramByProfileId(profileId));
+    }
+
     @Operation(summary = "Update Learning program", description = "Update a Learning program by specifying Id, " +
             "Education Provider Id and given resource", tags = {"learning programs"})
-    @PutMapping("{learningProgramId}")
+    @PutMapping("/educationProviders/{educationProviderId}/learningPrograms/{learningProgramId}")
     public LearningProgramResource updateLearningProgram(@PathVariable Long educationProviderId,
                                                          @PathVariable Long learningProgramId,
                                                          @Valid @RequestBody SaveLearningProgramResource resource){
@@ -67,7 +75,7 @@ public class LearningProgramController {
 
     @Operation(summary = "Delete Learning program", description = "Delete a Learning program by specifying Id " +
             "and Education Provider Id", tags = {"learning programs"})
-    @DeleteMapping("{learningProgramId}")
+    @DeleteMapping("/educationProviders/{educationProviderId}/learningPrograms/{learningProgramId}")
     public ResponseEntity<?> deleteLearningProgram(@PathVariable Long educationProviderId,
                                                    @PathVariable Long learningProgramId){
         return learningProgramService.deleteLearningProgram(educationProviderId, learningProgramId);

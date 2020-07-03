@@ -1,5 +1,5 @@
 package com.opensource.speedplanner.controller;
-
+/*
 //import com.opensource.speedplanner.model.PossibleSchedule;
 import com.opensource.speedplanner.model.Professor;
 import com.opensource.speedplanner.resource.ProfessorResource;
@@ -52,7 +52,7 @@ public class ProfessorController {
         return convertToResource(professorService.updateProfessor(professorId, convertToEntity(resource)));
     }
 
-     */
+
 
     //@Operation(summary = "Get All Professors", description = "Gets every existing professor in pages",
      //       tags = { "professors" })
@@ -63,7 +63,7 @@ public class ProfessorController {
             collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-/*
+
     @Operation(summary = "Delete Professor", description = "Deletes a particular professor, given its Id.",
             tags = { "professors" })
     @DeleteMapping("professors/{professorId}")
@@ -71,7 +71,7 @@ public class ProfessorController {
         return professorService.deleteProfessor(professorId);
     }
 
- */
+
  private ProfessorResource convertToResource(Professor entity){
         return mapper.map(entity, ProfessorResource.class);
     }
@@ -81,4 +81,4 @@ public class ProfessorController {
     }
 
 
-}
+}*/

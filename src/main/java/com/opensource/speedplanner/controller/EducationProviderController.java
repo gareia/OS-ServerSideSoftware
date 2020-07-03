@@ -28,7 +28,6 @@ public class EducationProviderController {
     @Autowired
     private EducationProviderService educationProviderService;
 
-
     @Operation(summary = "Create Education provider", description = "Create an Education provider by given resource",
             tags = {"education providers"})
     @PostMapping("/educationProviders")
@@ -54,6 +53,11 @@ public class EducationProviderController {
     public ResponseEntity<EducationProviderResource> getEducationProviderById(@PathVariable Long educationProviderId){
         EducationProviderResource educationProviderResource = convertToResource(educationProviderService.getEducationProviderById(educationProviderId));
         return new ResponseEntity<EducationProviderResource>(educationProviderResource, HttpStatus.OK);
+    }
+
+    @GetMapping("/profiles/{profileId}/educationProvider")
+    public EducationProviderResource getEducationProviderByProfileId(@PathVariable Long profileId){
+        return convertToResource(educationProviderService.getEducationProviderByProfileId(profileId));
     }
 
     @Operation(summary = "Update Education provider", description = "Update an Education provider by specifying Id " +

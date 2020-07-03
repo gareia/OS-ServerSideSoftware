@@ -7,26 +7,38 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+//not yet
+
+
+
 @Entity
 @Table(name = "constraints")
-@Inheritance(strategy=InheritanceType.JOINED)
 @Getter
 @Setter
-public abstract class Constraint {
+public class Constraint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public int type;
+    @Column(name = "start_time")
+    private String startTime;
 
-    //public boolean activeFilter;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "next_constraint_id", referencedColumnName = "id")
-    public Constraint nextConstraint;
+    @Column(name = "number_of_hours")
+    private int numberOfHours;
 
+    @Column(name = "professor_name")
+    private String professorName;
+
+    /*@Column(name = "end_time")
+    private String endTime;*/
+
+
+    //private String days;
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
 
 }

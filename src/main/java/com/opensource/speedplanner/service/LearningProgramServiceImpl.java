@@ -5,6 +5,7 @@ import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.LearningProgram;
 import com.opensource.speedplanner.repository.EducationProviderRepository;
 import com.opensource.speedplanner.repository.LearningProgramRepository;
+import com.opensource.speedplanner.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +17,10 @@ public class LearningProgramServiceImpl implements LearningProgramService{
 
     @Autowired
     private LearningProgramRepository learningProgramRepository;
-
-
     @Autowired
     private EducationProviderRepository educationProviderRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     @Override
     public LearningProgram createLearningProgram(Long educationProviderId, LearningProgram learningProgram) {
@@ -38,7 +39,12 @@ public class LearningProgramServiceImpl implements LearningProgramService{
                 ));
     }
 
-
+    @Override
+    public LearningProgram getLearningProgramByProfileId(Long profileId){
+        return profileRepository.findById(profileId).map(profile ->
+                profile.getLearningProgram()
+        ).orElseThrow(()->new ResourceNotFoundException("Profile", "Id", profileId));
+    }
 
     @Override
     public Page<LearningProgram> getAllLearningProgramsByEducationProvider(Long educationProviderId, Pageable pageable) {

@@ -11,6 +11,7 @@ public interface LearningProgramService {
     LearningProgram createLearningProgram(Long educationProviderId, LearningProgram learningProgram);
     LearningProgram getLearningProgramByIdAndEducationProviderId(Long educationProviderId, Long learningProgramId);
 
+    LearningProgram getLearningProgramByProfileId(Long profileId);
     Page<LearningProgram> getAllLearningProgramsByEducationProvider(Long educationProviderId, Pageable pageable);
 
     LearningProgram updateLearningProgram(Long educationProviderId, Long learningProgramId, LearningProgram learningProgramDetails);

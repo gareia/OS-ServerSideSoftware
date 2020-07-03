@@ -3,8 +3,10 @@ package com.opensource.speedplanner.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -12,31 +14,31 @@ public class SaveCourseResource {
 
     @NotBlank
     @NotNull
-    public String code;
+    @Size(max = 10)
+    @Column(unique=true)
+    private String code;
 
     @NotBlank
     @NotNull
-    public String name;
+    @Size(max = 30)
+    private String name;
+
+    @NotNull
+    private boolean isOptional;
+
+    @NotNull
+    private boolean isVirtual;
 
     @NotBlank
     @NotNull
-    public Long totalNumberOfStudents;
-
-    @NotNull
-    public boolean isOptional;
-
-    @NotNull
-    public boolean isVirtual;
+    private int semester;
 
     @NotBlank
     @NotNull
-    public int semester;
+    private int credits;
 
+    /*
     @NotBlank
     @NotNull
-    public int numberOfCredits;
-
-    @NotBlank
-    @NotNull
-    public int credits;
+    private Long education_provider_id;*/
 }

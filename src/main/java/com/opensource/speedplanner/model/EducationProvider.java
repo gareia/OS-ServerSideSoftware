@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "education_providers")
@@ -23,9 +24,42 @@ public class EducationProvider {
 
 	@NotNull
 	@NotBlank
-	@Size(max = 30)
+	@Size(max = 40)
 	@Column(unique = true)
     private String name;
+
+	@NotNull
+	@NotBlank
+	@Column(name = "number_of_careers")
+	private int numberOfCareers;
+
+	@NotNull
+	@NotBlank
+	@Column(name = "current_period_code")
+	private String currentPeriodCode;
+
+
+
+	//RELATIONSHIPS
+
+	//1 universidad tiene muchas carreras
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "educationProvider")
+	private List<LearningProgram> learningPrograms;
+
+	//1 perfil tiene 1 univ
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "educationProvider")
+	private List<Profile> profiles;
+
+	//1 univ tiene muchos cursos
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "educationProvider")
+	private List<Course> course;
+
+	//1 univ tiene muchos periodos
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "educationProvider")
+	private List<Course> periods;
+
+	//Relationships
+	//learning programs, profile, course, period, subscription
 
 	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
@@ -34,14 +68,6 @@ public class EducationProvider {
 	@JsonIgnore
     private Period academicPeriod;
 	*/
-
-	@NotNull
-	@NotBlank
-    private int numberOfCareers;
-
-    //private List<LearningProgram> careers;
-
-    //private List<Classroom> classrooms;
 
 	/*
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)

@@ -1,5 +1,5 @@
 package com.opensource.speedplanner.controller;
-
+/*
 import com.opensource.speedplanner.model.HourRangeConstraint;
 import com.opensource.speedplanner.resource.HourRangeConstraintResource;
 import com.opensource.speedplanner.resource.SaveHourRangeConstraintResource;
@@ -28,3 +28,4 @@ public class HourRangeConstraintController {
         return mapper.map(entity, HourRangeConstraintResource.class);
     }
 }
+*/

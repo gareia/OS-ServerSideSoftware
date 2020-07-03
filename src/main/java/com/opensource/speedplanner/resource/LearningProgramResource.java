@@ -11,5 +11,6 @@ public class LearningProgramResource {
     private String type; //CarreraUniv CarreraTecn
     private String name; //IngSoftware Mecanico
     private Long numberOfCourses;
+    private Long educationProviderId;
 
 }

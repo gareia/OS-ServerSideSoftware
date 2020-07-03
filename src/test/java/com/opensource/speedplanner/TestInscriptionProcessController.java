@@ -1,5 +1,5 @@
 package com.opensource.speedplanner;
-
+/*
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opensource.speedplanner.controller.InscriptionProcessController;
 import org.junit.Test;
@@ -66,3 +66,4 @@ public class TestInscriptionProcessController {
     }
     //DELETE
 }
+*/

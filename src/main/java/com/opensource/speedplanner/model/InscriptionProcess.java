@@ -14,22 +14,44 @@ import java.util.List;
 @Getter
 @Setter
 public class InscriptionProcess {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
     private Long id;
 
-    //private List<Course> courses;
+    //RELATIONSHIPS
 
-    //private List<PossibleSchedule> possibleSchedules;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "period_id", nullable = false)
+	private Period period;
+
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+	private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "i_process_courses",
+            joinColumns = {@JoinColumn(name = "i_process_id")},
+            inverseJoinColumns = {@JoinColumn(name = "course_id")})
+    private List<Course> courses;
+
+
+    private int totalCredits; //TODO: Sum generated
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "i_process_sections",
+            joinColumns = {@JoinColumn(name = "i_process_id")},
+            inverseJoinColumns = {@JoinColumn(name = "section_id")})
+    private List<Section> sections;
+
+
+
+    /*@OneToMany(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "possible_schedule_id", nullable = false)
+    private List<Course> possibleSchedule;*/
 
     //private List<Constraint> constraints;
 
     //private List<SectionRequest> sectionRequests;
-/*
-	@OneToOne(mappedBy = "inscription_processes")
-	private Period period;*/
-
-	@OneToOne(mappedBy = "inscriptionProcess")
-	private User user;
 }
