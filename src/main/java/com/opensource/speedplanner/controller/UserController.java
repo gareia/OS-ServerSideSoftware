@@ -28,10 +28,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @Operation(summary = "Create User", description = "Create User by given resource", tags = {"users"})
-    @PostMapping("/users")
-    public UserResource createUser(@Valid @RequestBody SaveUserResource resource) {
-        return convertToResource(userService.createUser(convertToEntity(resource)));
+    @PostMapping("profiles/{profileId}/users")
+    public UserResource createUser(@PathVariable Long profileId, @Valid @RequestBody SaveUserResource resource) {
+        return convertToResource(userService.createUser(profileId, convertToEntity(resource)));
+    }
+
+    @Operation(summary = "Get all Users", description = "Get All Users by Pages", tags = {"users"})
+    @GetMapping("/users")
+    public Page<UserResource> getAllUsers(Pageable pageable) {
+        List<UserResource> users = userService.getAllUsers(pageable)
+                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int usersCount = users.size();
+        return new PageImpl<>(users, pageable, usersCount);
     }
 
     @Operation(summary = "Get User by Id", description = "Get User by specifying Id", tags = {"users"})
@@ -40,8 +51,9 @@ public class UserController {
         return convertToResource(userService.getUserById(userId));
     }
 
+/*
     @Operation(summary = "Update User", description = "Update User by specifying Id and given resource", tags = {"users"})
-    @PutMapping("/users/{id}")
+    @PutMapping("profiles/{profileId}/users/{id}")
     public UserResource updateUser(@PathVariable(name = "id") Long userId, @Valid @RequestBody SaveUserResource resource) {
         return convertToResource(userService.updateUser(userId, convertToEntity(resource)));
     }
@@ -50,16 +62,8 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(name = "id") Long userId) {
         return userService.deleteUser(userId);
-    }
+    }*/
 
-    @Operation(summary = "Get all Users", description = "Get All Users by Pages", tags = {"users"})
-    @GetMapping("/users")
-    public Page<UserResource> getAllUser(Pageable pageable) {
-        List<UserResource> users = userService.getAllUser(pageable)
-                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        int usersCount = users.size();
-        return new PageImpl<>(users, pageable, usersCount);
-    }
 
     private User convertToEntity(SaveUserResource resource) { return mapper.map(resource, User.class); }
 

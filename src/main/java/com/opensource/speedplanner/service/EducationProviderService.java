@@ -9,6 +9,7 @@ public interface EducationProviderService {
 
     EducationProvider createEducationProvider(EducationProvider educationProvider);
     EducationProvider getEducationProviderById(Long educationProviderId);
+    EducationProvider getEducationProviderByProfileId(Long profileId);
 
     Page<EducationProvider> getAllEducationProviders(Pageable pageable);
     EducationProvider updateEducationProvider(Long educationProviderId, EducationProvider educationProviderDetails);

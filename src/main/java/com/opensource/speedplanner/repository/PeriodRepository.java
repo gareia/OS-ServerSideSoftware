@@ -1,5 +1,5 @@
 package com.opensource.speedplanner.repository;
-/*
+
 import com.opensource.speedplanner.model.Period;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface PeriodRepository extends JpaRepository<Period, Long> {
 
-    Page<Period> findAllByLearningProgramId(Long learningProgramId, Pageable pageable);
-    Optional<Period> findByIdAndLearningProgramId(Long periodId, Long learningProgramId);
+    Page<Period> findByEducationProviderId(Long educationProviderId, Pageable pageable);
+    Optional<Period> findByIdAndEducationProviderId(Long id, Long educationProviderId);
+    Period findByCode(String code);
 
 }
-*/

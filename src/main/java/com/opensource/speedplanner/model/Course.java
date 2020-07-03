@@ -24,25 +24,14 @@ public class Course {
 
     @NotBlank
     @NotNull
-    @Size(max = 5)
+    @Size(max = 10)
     @Column(unique=true)
     private String code;
 
     @NotBlank
     @NotNull
-    @Size(max = 25)
-    @Column(name= "names")
+    @Size(max = 30)
     private String name;
-
-    //@NotBlank
-    //@NotNull
-    //private List<Section> sections;
-
-    @NotBlank
-    @NotNull
-    @Size(max = 40)
-    @Column(name= "total_number_of_students")
-    private Long totalNumberOfStudents;
 
     @NotNull
     @Column(name= "is_optional")
@@ -54,19 +43,50 @@ public class Course {
 
     @NotBlank
     @NotNull
-    @Column(name= "semester")
     private int semester;
 
     @NotBlank
     @NotNull
-    @Column(name= "number_of_credits")
-    private int numberOfCredits;
-
-    @NotBlank
-    @NotNull
-    @Column(name= "credits")
     private int credits;
+
+    //TODO: SUM Students in course
+    @Size(max = 40)
+    @Column(name= "total_nmbr_of_stdnts")
+    private Long totalNumberOfStudents;
+
+    //RELATIONSHIPS
+    //course, education provider, courses, course and sections,
+    //possible schedules
+    //1 curso puede tener muchos cursos requisitos
+    //1 requisito puede ser de muchos cursos
+
+    //1 curso pertence a 1 carrera
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
+    private List<LearningProgram> learningPrograms;
+
+    //1 curso tiene muchas secciones
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    private List<Section> sections;
+
+    //1 curso tiene solo 1 univ
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "education_provider_id", nullable = false)
+    private EducationProvider educationProvider;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
+    private List<InscriptionProcess> inscriptionProcesses;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "course")
+    private Constraint constraint;
+
+
 /*
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "possible_schedule_id", nullable = false)
+    private PossibleSchedule possibleSchedule;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "courses")

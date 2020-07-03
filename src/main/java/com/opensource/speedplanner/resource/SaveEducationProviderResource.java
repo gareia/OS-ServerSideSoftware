@@ -13,11 +13,15 @@ import javax.validation.constraints.Size;
 public class SaveEducationProviderResource {
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 40)
     @Column(unique = true)
     private String name;
 
     @NotNull
     @NotBlank
     private int numberOfCareers;
+
+    @NotNull
+    @NotBlank
+    private String currentPeriodCode;
 }

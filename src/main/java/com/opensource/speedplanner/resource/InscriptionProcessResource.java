@@ -7,4 +7,7 @@ import lombok.Setter;
 @Setter
 public class InscriptionProcessResource {
     private Long id;
+    private Long periodId;
+    private Long userId;
+    private int totalCredits;
 }

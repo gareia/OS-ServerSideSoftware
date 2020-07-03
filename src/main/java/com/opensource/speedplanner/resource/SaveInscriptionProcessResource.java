@@ -11,8 +11,4 @@ import javax.persistence.OneToOne;
 @Setter
 public class SaveInscriptionProcessResource {
 
-    @OneToOne(mappedBy = "inscriptionProcess")
-    @JsonIgnore
-    private User user;
-
 }

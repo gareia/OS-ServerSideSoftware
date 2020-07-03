@@ -20,8 +20,9 @@ import java.util.stream.Collectors;
 
 @Tag(name="inscription processes", description = "Inscription processes API")
 @RestController
-@RequestMapping("/api/users/{userId}/inscriptionProcesses")
+@RequestMapping("/api")
 public class InscriptionProcessController {
+
     @Autowired
     private ModelMapper mapper;
     @Autowired
@@ -29,7 +30,7 @@ public class InscriptionProcessController {
 
     @Operation(summary = "Create Inscription process", description = "Create an Inscription process by User Id and given resource",
             tags = {"inscription processes"})
-    @PostMapping
+    @PostMapping("/users/{userId}/inscriptionProcesses")
     public InscriptionProcessResource createInscriptionProcess(@PathVariable Long userId,
                                                                @Valid @RequestBody SaveInscriptionProcessResource resource){
         InscriptionProcess inscriptionProcess = convertToEntity(resource);
@@ -37,7 +38,7 @@ public class InscriptionProcessController {
     }
     @Operation(summary = "Get Inscription processes by User Id", description = "Get All Inscription processes by Pages " +
             "and User Id", tags = {"inscription processes"})
-    @GetMapping
+    @GetMapping("/users/{userId}/inscriptionProcesses")
     public Page<InscriptionProcessResource> getAllInscriptionProcessesByUserId(@PathVariable Long userId, Pageable pageable){
         Page<InscriptionProcess> inscriptionProcesses = inscriptionProcessService.getAllInscriptionProcessesByUserId(userId, pageable);
         List<InscriptionProcessResource> resources = inscriptionProcesses.getContent().stream().map(this::convertToResource)
@@ -46,24 +47,25 @@ public class InscriptionProcessController {
     }
     @Operation(summary = "Get Inscription process by Id and User Id", description = "Get an Inscription process by " +
             "specifying Id and User Id", tags = {"inscription processes"})
-    @GetMapping("/{inscriptionProcessId}")
-    public InscriptionProcessResource getInscriptionProcessByIdAndUserId(@PathVariable Long userId, @PathVariable Long inscriptionProcessId){
+    @GetMapping("/users/{userId}/inscriptionProcesses/{inscriptionProcessId}")
+    public InscriptionProcessResource getInscriptionProcessByIdAndUserId(@PathVariable Long userId, @PathVariable Long inscriptionProcessId) {
         return convertToResource(inscriptionProcessService.getInscriptionProcessByIdAndUserId(userId, inscriptionProcessId));
     }
+
     /*
     @PutMapping("/inscriptionProcesses/{inscriptionProcessId}")
     public InscriptionProcessResource updateInscriptionProcess(@PathVariable Long inscriptionProcessId,
                                                              @Valid @RequestBody SaveInscriptionProcessResource resource){
         InscriptionProcess inscriptionProcess = convertToEntity(resource);
         return convertToResource(inscriptionProcessService.updateInscriptionProcess(inscriptionProcessId, inscriptionProcess));
-    }*/
+    }//
     @Operation(summary = "Delete Inscription process", description = "Delete an Inscription process by specifying Id and " +
             "User Id", tags = {"inscription processes"})
     @DeleteMapping("/{inscriptionProcessId}")
     public ResponseEntity<?> deleteInscriptionProcess(@PathVariable Long userId, @PathVariable Long inscriptionProcessId){
         return inscriptionProcessService.deleteInscriptionProcess(userId, inscriptionProcessId);
     }
-
+    */
 
     private InscriptionProcess convertToEntity(SaveInscriptionProcessResource resource){
         return mapper.map(resource, InscriptionProcess.class);

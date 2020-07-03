@@ -3,6 +3,7 @@ package com.opensource.speedplanner.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,12 +30,34 @@ public class LearningProgram {
 
     @NotNull
     @NotBlank
-    @Column(unique = true)
 	private String name; //IngSoftware Mecanico
 
 	@NotNull
 	@NotBlank
+    @Column(name = "number_of_courses")
     private Long numberOfCourses;
+
+	//RELATIONSHIPS
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "learningProgram")
+	private List<Profile> profiles;
+
+	//1 carrera tiene muchos cursos
+    //1 curso tiene muchas carreras
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "l_program_courses",
+    joinColumns = {@JoinColumn(name = "l_program_id")},
+    inverseJoinColumns = {@JoinColumn(name = "course_id")})
+    private List<Course> courses;
+
+    //muchas carreras son de 1 univ
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="education_provider_id", nullable = false)
+    private EducationProvider educationProvider;
+
+
+	//Relationships
+    //Education provider, course, profile, statistics
 
     //private List<Period> periodList;
 
@@ -56,9 +79,9 @@ public class LearningProgram {
     */
 
     //Porque EducationProvider tiene List<LearningProgram>
+    /*
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "education_provider_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private EducationProvider educationProvider;
+    private EducationProvider educationProvider;*/
 }

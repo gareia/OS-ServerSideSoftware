@@ -1,8 +1,44 @@
 package com.opensource.speedplanner.model;
 
-public abstract class Constraint {
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
-    public Constraint nextConstraint;
+import javax.persistence.*;
+
+//not yet
+
+
+
+@Entity
+@Table(name = "constraints")
+@Getter
+@Setter
+public class Constraint {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "start_time")
+    private String startTime;
+
+
+    @Column(name = "number_of_hours")
+    private int numberOfHours;
+
+    @Column(name = "professor_name")
+    private String professorName;
+
+    /*@Column(name = "end_time")
+    private String endTime;*/
+
+
+    //private String days;
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
 
 }

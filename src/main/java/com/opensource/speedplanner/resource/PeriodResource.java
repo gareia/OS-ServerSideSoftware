@@ -8,8 +8,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class PeriodResource {
-    private int code;
-    private Date startDate;
-    private Date endDate;
-
+    private Long id;
+    private String code;
+    private String startDate;
+    private String endDate;
 }

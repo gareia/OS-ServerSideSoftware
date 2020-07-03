@@ -3,6 +3,7 @@ package com.opensource.speedplanner.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -13,14 +14,14 @@ public class SavePeriodResource {
 
     @NotBlank
     @NotNull
-    private int code;
+    @Column(unique = true)
+    private String code;
 
     @NotBlank
     @NotNull
-    private Date startDate;
+    private String startDate;
 
     @NotBlank
     @NotNull
-    private Date endDate;
+    private String endDate;
 }
-

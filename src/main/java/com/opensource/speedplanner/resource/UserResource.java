@@ -10,4 +10,6 @@ public class UserResource {
     private String username;
     private String password;
     private String email;
+
+    private Long profileId;
 }
