@@ -1,8 +1,10 @@
 package com.opensource.speedplanner.service;
-/*
+
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.Constraint;
+import com.opensource.speedplanner.model.Course;
 import com.opensource.speedplanner.repository.ConstraintRepository;
+import com.opensource.speedplanner.repository.CourseRepository;
 import com.opensource.speedplanner.repository.InscriptionProcessRepository;
 import com.opensource.speedplanner.repository.UserRepository;
 import org.apache.tomcat.util.bcel.Const;
@@ -18,36 +20,37 @@ public class ConstraintServiceImpl implements ConstraintService{
     InscriptionProcessRepository inscriptionProcessRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CourseRepository courseRepository;
 
 
     @Override
-    public Constraint createConstraint(Long userId, Long courseId, Constraint constraint) {
-        return userRepository.findById(userId).map(user -> {
-            user.getInscriptionProcess().get
-        setConstraint(constraint);
+    public Constraint createConstraint(Long courseId, Constraint constraint) {
+        return courseRepository.findById(courseId).map(course->{
+            constraint.setCourse(course);
+            course.setConstraint(constraint);
             return constraintRepository.save(constraint);
-        }).orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
-    }
-
-    public Constraint getConstraintByUserId(Long userId){
-        return userRepository.findById(userId)
-                .map(user -> user.getInscriptionProcess().getConstraint())
-                .orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
+        }).orElseThrow(()->new ResourceNotFoundException("Course", "Id", courseId));
     }
 
     @Override
-    public Constraint updateConstraint(Long userId, Constraint details) {
+    public Constraint getConstraintByCourseId(Long courseId){
 
-        return userRepository.findById(userId).map(user -> {
-
-            Constraint constraint = user.getInscriptionProcess().getConstraint();
-            constraint.setStartTime(details.getStartTime());
-            constraint.setNumberOfHours(details.getNumberOfHours());
-            constraint.setProfessorName(details.getProfessorName());
-
-            return constraintRepository.save(constraint);
-
-        }).orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
+        return courseRepository.findById(courseId).map(course->
+            course.getConstraint()
+        ).orElseThrow(()->new ResourceNotFoundException("Course", "Id", courseId));
     }
+
+    @Override
+    public Constraint updateConstraint(Long courseId, Constraint details) {
+
+        Constraint constraint = courseRepository.findById(courseId).map(course -> course.getConstraint())
+                .orElseThrow(()->new ResourceNotFoundException("Course", "Id", courseId));
+
+        constraint.setProfessorName(details.getProfessorName());
+        constraint.setNumberOfHours(details.getNumberOfHours());
+        constraint.setStartTime(details.getStartTime());
+        return constraintRepository.save(constraint);
+    }
+
 }
-*/

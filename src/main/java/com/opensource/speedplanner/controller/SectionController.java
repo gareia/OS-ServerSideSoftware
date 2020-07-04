@@ -1,5 +1,6 @@
 package com.opensource.speedplanner.controller;
 
+
 import com.opensource.speedplanner.model.Section;
 import com.opensource.speedplanner.resource.SaveSectionResource;
 import com.opensource.speedplanner.resource.SectionResource;
@@ -37,11 +38,13 @@ public class SectionController {
                 .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
-/*
-    @GetMapping("/courses/{courseId}/constraints/{constraintId}/sections")
-    public Page<SectionResource> getAllSectionsByCourseId(@PathVariable Long courseId, @PathVariable Long constraintId, Pageable pageable) {
-        //TODO:COMPLETAR
-    }*/
+
+    @GetMapping("/users/{userId}/courses/{courseId}/constraints/sections")
+    public Page<SectionResource> getAllSectionsByCourseIdAndProfessorConstraint(@PathVariable Long userId, @PathVariable Long courseId, Pageable pageable) {
+        List<Section> sections = sectionService.getAllSectionsByCourseIdAndProfessorConstraint(userId, courseId, pageable);
+        List<SectionResource> resources = sections.stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
 
     public Section convertToEntity(SaveSectionResource resource){
         return mapper.map(resource, Section.class);
