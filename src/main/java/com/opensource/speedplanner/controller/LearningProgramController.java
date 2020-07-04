@@ -1,7 +1,8 @@
 package com.opensource.speedplanner.controller;
 
 import com.opensource.speedplanner.model.LearningProgram;
-import com.opensource.speedplanner.resource.*;
+import com.opensource.speedplanner.resource.LearningProgramResource;
+import com.opensource.speedplanner.resource.SaveLearningProgramResource;
 import com.opensource.speedplanner.service.LearningProgramService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

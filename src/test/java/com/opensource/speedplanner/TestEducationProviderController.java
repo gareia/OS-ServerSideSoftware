@@ -2,34 +2,23 @@ package com.opensource.speedplanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opensource.speedplanner.controller.EducationProviderController;
-import com.opensource.speedplanner.resource.EducationProviderResource;
-import com.opensource.speedplanner.resource.SaveEducationProviderResource;
-import com.opensource.speedplanner.service.EducationProviderService;
+import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 //import org.apache.http.HttpResponse;
 //import org.apache.http.client.ClientProtocolException;
 //import org.apache.http.client.methods.HttpGet;
 //import org.apache.http.client.methods.HttpUriRequest;
 //import org.apache.http.impl.client.HttpClientBuilder;
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-
-import java.io.IOException;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @ExtendWith(SpringExtension.class)

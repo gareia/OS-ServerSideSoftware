@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,6 +50,8 @@ public class UserController {
         return convertToResource(userService.getUserById(userId));
     }
 
+
+    //blubli
 /*
     @Operation(summary = "Update User", description = "Update User by specifying Id and given resource", tags = {"users"})
     @PutMapping("profiles/{profileId}/users/{id}")

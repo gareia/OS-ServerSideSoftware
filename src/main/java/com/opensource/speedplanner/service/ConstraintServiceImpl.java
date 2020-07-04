@@ -2,12 +2,10 @@ package com.opensource.speedplanner.service;
 
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.Constraint;
-import com.opensource.speedplanner.model.Course;
 import com.opensource.speedplanner.repository.ConstraintRepository;
 import com.opensource.speedplanner.repository.CourseRepository;
 import com.opensource.speedplanner.repository.InscriptionProcessRepository;
 import com.opensource.speedplanner.repository.UserRepository;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,8 +4,6 @@ import com.opensource.speedplanner.model.Course;
 import com.opensource.speedplanner.resource.CourseResource;
 import com.opensource.speedplanner.resource.SaveCourseResource;
 import com.opensource.speedplanner.service.CourseService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,11 @@
 package com.opensource.speedplanner.service;
 
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
-import com.opensource.speedplanner.model.EducationProvider;
 import com.opensource.speedplanner.model.LearningProgram;
 import com.opensource.speedplanner.model.Profile;
 import com.opensource.speedplanner.repository.EducationProviderRepository;
 import com.opensource.speedplanner.repository.LearningProgramRepository;
 import com.opensource.speedplanner.repository.ProfileRepository;
-import com.opensource.speedplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,6 @@
 package com.opensource.speedplanner.repository;
 
 import com.opensource.speedplanner.model.Course;
-import com.opensource.speedplanner.model.LearningProgram;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

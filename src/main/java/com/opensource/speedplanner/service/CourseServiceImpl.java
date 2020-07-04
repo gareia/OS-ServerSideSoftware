@@ -2,17 +2,14 @@ package com.opensource.speedplanner.service;
 
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.Course;
-import com.opensource.speedplanner.model.InscriptionProcess;
 import com.opensource.speedplanner.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {

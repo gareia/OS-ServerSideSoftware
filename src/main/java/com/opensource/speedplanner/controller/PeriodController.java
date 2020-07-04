@@ -5,14 +5,12 @@ import com.opensource.speedplanner.model.Period;
 import com.opensource.speedplanner.resource.PeriodResource;
 import com.opensource.speedplanner.resource.SavePeriodResource;
 import com.opensource.speedplanner.service.PeriodService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

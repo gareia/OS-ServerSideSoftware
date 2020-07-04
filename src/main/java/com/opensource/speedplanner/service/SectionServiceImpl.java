@@ -2,7 +2,6 @@ package com.opensource.speedplanner.service;
 
 import com.opensource.speedplanner.exception.ResourceNotFoundException;
 import com.opensource.speedplanner.model.Constraint;
-import com.opensource.speedplanner.model.Course;
 import com.opensource.speedplanner.model.Section;
 import com.opensource.speedplanner.repository.ConstraintRepository;
 import com.opensource.speedplanner.repository.CourseRepository;
@@ -13,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
