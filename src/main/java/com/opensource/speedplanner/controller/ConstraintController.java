@@ -1,5 +1,5 @@
 package com.opensource.speedplanner.controller;
-/*
+
 import com.opensource.speedplanner.model.Constraint;
 import com.opensource.speedplanner.resource.ConstraintResource;
 import com.opensource.speedplanner.resource.SaveConstraintResource;
@@ -18,16 +18,21 @@ public class ConstraintController {
     @Autowired
     private ConstraintService constraintService;
 
-    @PostMapping("/users/{userId}/constraints")
-    public ConstraintResource createConstraint(@PathVariable Long userId, @Valid @RequestBody SaveConstraintResource resource){
+    @PostMapping("/users/courses/{courseId}/constraint")
+    public ConstraintResource createConstraint(@PathVariable Long courseId, @Valid @RequestBody SaveConstraintResource resource){
         Constraint constraint = convertToEntity(resource);
-        return convertToResource(constraintService.createConstraint(userId, constraint));
+        return convertToResource(constraintService.createConstraint(courseId, constraint));
     }
 
-    @PutMapping("/users/{userId}/constraints")
-    public ConstraintResource updateConstraint(@PathVariable Long userId, @Valid @RequestBody SaveConstraintResource resource){
+    @GetMapping("/users/courses/{courseId}/constraint")
+    public ConstraintResource getConstraintByCourseId(@PathVariable Long courseId){
+        return convertToResource(constraintService.getConstraintByCourseId(courseId));
+    }
+
+    @PutMapping("/users/courses/{courseId}/constraint")
+    public ConstraintResource updateConstraint(@PathVariable Long courseId, @Valid @RequestBody SaveConstraintResource resource){
         Constraint constraint = convertToEntity(resource);
-        return convertToResource(constraintService.updateConstraint(userId, constraint));
+        return convertToResource(constraintService.updateConstraint(courseId, constraint));
     }
 
 
@@ -40,4 +45,3 @@ public class ConstraintController {
     }
 
 }
-*/

@@ -38,6 +38,14 @@ public class SectionScheduleController {
                 .collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+/*
+    @GetMapping("/users/{userId}/sectionSchedules")
+    public Page<SectionScheduleResource> getAllSectionSchedulesByConstraint(@PathVariable Long userId, Pageable pageable){
+        List<SectionSchedule> sectionSchedules = sectionScheduleService.getAllSectionSchedulesByConstraint(userId);
+        List<SectionScheduleResource> resources = sectionSchedules.stream().map(this::convertToResource)
+                .collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }*/
 
     private SectionSchedule convertToEntity(SaveSectionScheduleResource resource){
         return mapper.map(resource, SectionSchedule.class);
